@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-black dark:bg-black dark:text-white antialiased transition-colors duration-300; }
+::selection { @apply bg-black text-white dark:bg-white dark:text-black; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { @apply bg-zinc-400 dark:bg-zinc-700 rounded; }
+
+.noise::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.glass { @apply bg-zinc-100/70 dark:bg-ink/70 backdrop-blur-xl border border-zinc-300 dark:border-stroke; }
+.glow { @apply transition-shadow duration-300 hover:shadow-[0_0_25px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]; }
+.section { @apply relative px-5 sm:px-8 lg:px-12 py-24 mx-auto w-full max-w-7xl 3xl:max-w-[1600px]; }
+
+/* liquid border button */
+.liquid { position: relative; overflow: hidden; isolation: isolate; }
+.liquid::before {
+  content: ""; position: absolute; left: 50%; top: 100%; width: 150%; aspect-ratio: 1; border-radius: 40%;
+  background: currentColor; transform: translate(-50%, 0); transition: top .6s cubic-bezier(.2,.8,.2,1), border-radius .6s; z-index: -1;
+}
+.liquid:hover::before { top: -25%; border-radius: 50%; }
+.liquid span { transition: color .4s; mix-blend-mode: normal; }
